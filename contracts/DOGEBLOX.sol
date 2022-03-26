@@ -41,16 +41,25 @@ contract DOGEBLOX is Context, IERC20, Ownable {
     mapping (address => bool) public isMarketPair;
 
     uint256 public _buyLiquidityFee = 2;
+    uint256 private constant _maxBuyLiquidityFee = 5;
     uint256 public _buyMarketingFee = 2;
+    uint256 private constant _maxBuyMarketingFee = 5;
     uint256 public _buyTeamFee = 1;
+    uint256 private constant _maxBuyTeamFee = 5;
     
     uint256 public _sellLiquidityFee = 2;
+    uint256 private constant _maxSellLiquidityFee = 5;
     uint256 public _sellMarketingFee = 2;
+    uint256 private constant _maxSellMarketingFee = 5;
     uint256 public _sellTeamFee = 1;
+    uint256 private constant _maxSellTeamFee = 5;
 
     uint256 public _liquidityShare = 4;
+    uint256 private constant _maxLiquidityShare = 10;
     uint256 public _marketingShare = 4;
+    uint256 private constant _maxMarketingShare = 10;
     uint256 public _teamShare = 16;
+    uint256 private constant _maxTeamShare = 24;
 
     uint256 public _totalTaxIfBuying = 5;
     uint256 public _totalTaxIfSelling = 5;
@@ -178,6 +187,10 @@ contract DOGEBLOX is Context, IERC20, Ownable {
     }
 
     function setBuyTaxes(uint256 newLiquidityTax, uint256 newMarketingTax, uint256 newTeamTax) external onlyOwner() {
+        require(newLiquidityTax <= _maxBuyLiquidityFee, "DOGEBLOX: buyLiquidityFee exceeds maximum value!");
+        require(newMarketingTax <= _maxBuyMarketingFee, "DOGEBLOX: buyMarketingFee exceeds maximum value!");
+        require(newTeamTax <= _maxBuyTeamFee, "DOGEBLOX: buyTeamFee exceeds maximum value!");
+
         _buyLiquidityFee = newLiquidityTax;
         _buyMarketingFee = newMarketingTax;
         _buyTeamFee = newTeamTax;
@@ -186,6 +199,10 @@ contract DOGEBLOX is Context, IERC20, Ownable {
     }
 
     function setSelTaxes(uint256 newLiquidityTax, uint256 newMarketingTax, uint256 newTeamTax) external onlyOwner() {
+        require(newLiquidityTax <= _maxSellLiquidityFee, "DOGEBLOX: sellLiquidityFee exceeds maximum value!");
+        require(newMarketingTax <= _maxSellMarketingFee, "DOGEBLOX: sellMarketingFee exceeds maximum value!");
+        require(newTeamTax <= _maxSellTeamFee, "DOGEBLOX: sellTeamFee exceeds maximum value!");
+
         _sellLiquidityFee = newLiquidityTax;
         _sellMarketingFee = newMarketingTax;
         _sellTeamFee = newTeamTax;
@@ -194,6 +211,10 @@ contract DOGEBLOX is Context, IERC20, Ownable {
     }
     
     function setDistributionSettings(uint256 newLiquidityShare, uint256 newMarketingShare, uint256 newTeamShare) external onlyOwner() {
+        require(newLiquidityShare <= _maxLiquidityShare, "DOGEBLOX: liquidityShare exceeds maximum value!");
+        require(newMarketingShare <= _maxMarketingShare, "DOGEBLOX: marketingShare exceeds maximum value!");
+        require(newTeamShare <= _maxTeamShare, "DOGEBLOX: teamShare exceeds maximum value!");
+
         _liquidityShare = newLiquidityShare;
         _marketingShare = newMarketingShare;
         _teamShare = newTeamShare;
