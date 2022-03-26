@@ -14,5 +14,11 @@ This package includes ERC-20 token smart contract.
 Use Remix IDE or deployment tools like Hardhat, Truffle to deploy this contract.
 
 https://remix.ethereum.org
+
 https://hardhat.org/guides/deploying.html
+
 https://trufflesuite.com/docs/truffle/quickstart.html
+
+## License
+
+MIT
